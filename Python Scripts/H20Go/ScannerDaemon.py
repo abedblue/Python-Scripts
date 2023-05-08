@@ -1,10 +1,11 @@
 import requests
 import time
 from urllib.parse import urlencode
+import sys
 
-url = 'http://h2ogo.app/scan-api'
-pingurl = 'http://h2ogo.app/ping-api'
-device = '123'
+url = 'http://campcanadensis.h2ogo.app/scan-api'
+pingurl = 'http://campcanadensis.h2ogo.app/ping-api'
+device = 'Main'
 minutes = 0
 header = {"content-type": "text/html"}
 
@@ -13,10 +14,10 @@ while True:
         try:
             myping = {'secret_key': 'supersecret', 'device_id': str(device)}
             z = requests.post(pingurl, data = myping)
-            print(z.text)
+            sys.stdout.write(z.text)
         except:
-            print("ping err")
-            print(z.text)
+            sys.stdout.write("ping err")
+            sys.stdout.write(z.text)
     minutes += 1
     #print("start1")
     #print(minutes)
@@ -33,10 +34,10 @@ while True:
                         y = requests.post(url, data = myobj)                      
                         if str(y.text) != "1":
                             toWrite += x
-                            print("API error code:")
-                            print(y.text)
+                            sys.stdout.write("API error code:")
+                            sys.stdout.write(y.text)
                     except:
-                        print("err")
+                        sys.stdout.write("err")
                         toWrite += x
             work1.seek(0)
             work1.truncate(0)
@@ -44,7 +45,7 @@ while True:
             work1.close()
             #print(toWrite)
         except:
-            print("err")
+            sys.stdout.write("err")
     #print("end1")
     time.sleep(30)
     minutes += 1
@@ -63,10 +64,10 @@ while True:
                         y = requests.post(url, data = myobj)
                         if str(y.text) != "1":
                             toWrite += x
-                            print("API error code:")
-                            print(y.text)
+                            sys.stdout.write("API error code:")
+                            sys.stdout.write(y.text)
                     except:
-                        print("err")
+                        sys.stdout.write("err")
                         toWrite += x
             work.seek(0)
             work.truncate(0)
@@ -74,6 +75,6 @@ while True:
             work.close()
             #print(toWrite)
         except:
-            print("err")            
+            sys.stdout.write("err")            
     #print("end2")
     time.sleep(30)
